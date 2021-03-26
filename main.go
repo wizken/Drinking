@@ -1,11 +1,10 @@
-package main
+package drinking
 
 import (
 	"fmt"
 	"github.com/go-toast/toast"
 	"github.com/lxn/walk"
 	"github.com/robfig/cron"
-	"github.com/winstonkenny/drinking/windows"
 	"log"
 	"reflect"
 	"runtime"
@@ -25,7 +24,7 @@ func main() {
 	Cron.Start()
 	fmt.Println("CronJob start.....")
 
-	mw := new(windows.MyMainWindow)
+	mw := new(MyMainWindow)
 	var err error
 	mw.MainWindow, err = walk.NewMainWindow()
 	if err != nil {
