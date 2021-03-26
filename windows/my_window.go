@@ -1,4 +1,4 @@
-package drinking
+package windows
 
 import (
 	"github.com/lxn/walk"
