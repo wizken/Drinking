@@ -1,27 +1,25 @@
 package main
 
 import (
-	"./windows"
 	"fmt"
 	"github.com/go-toast/toast"
 	"github.com/lxn/walk"
 	"github.com/robfig/cron"
+	"github.com/winstonkenny/drinking/windows"
 	"reflect"
 	"runtime"
 	"time"
 )
 
 var Cron *cron.Cron
-var Entries []cron.EntryID
 
 func main() {
 	// 创建定时任务
 	if Cron == nil {
-		Cron = cron.New(cron.WithSeconds())
+		Cron = cron.New()
 	}
 
-	entryId, _ := Cron.AddFunc("0 0,30 * * * *", func() { Run(DoNotice) })
-	Entries = append(Entries, entryId)
+	_ = Cron.AddFunc("0 0,30 * * * *", func() { Run(DoNotice) })
 
 	Cron.Start()
 	fmt.Println("CronJob start.....")
