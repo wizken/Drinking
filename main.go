@@ -1,15 +1,13 @@
 package main
 
 import (
+	"./windows"
 	"fmt"
 	"github.com/go-toast/toast"
 	"github.com/lxn/walk"
 	"github.com/robfig/cron"
-	"os"
 	"reflect"
 	"runtime"
-	"study/my-tools/drink_water_regularly/windows"
-	"study/util"
 	"time"
 )
 
@@ -17,11 +15,6 @@ var Cron *cron.Cron
 var Entries []cron.EntryID
 
 func main() {
-	// MQTT 1C86E3CE26A36094B4C5F7642DD5D056
-	//waitGroup := sync.WaitGroup{}
-	mac := util.GetMac()
-	fmt.Println(os.Hostname())
-	fmt.Println(mac)
 	// 创建定时任务
 	if Cron == nil {
 		Cron = cron.New(cron.WithSeconds())
@@ -33,9 +26,6 @@ func main() {
 	Cron.Start()
 	fmt.Println("CronJob start.....")
 
-	//waitGroup.Add(1)
-	//waitGroup.Wait()
-
 	mw := new(windows.MyMainWindow)
 	mw.MainWindow, _ = walk.NewMainWindow()
 	mw.AddNotifyIcon()
@@ -43,7 +33,6 @@ func main() {
 		Cron.Stop()
 	})
 	mw.Run()
-	fmt.Println("CronJob end.....")
 }
 
 func Run(job func() error) {
