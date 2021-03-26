@@ -6,6 +6,7 @@ import (
 	"github.com/lxn/walk"
 	"github.com/robfig/cron"
 	"github.com/winstonkenny/drinking/windows"
+	"log"
 	"reflect"
 	"runtime"
 	"time"
@@ -25,7 +26,11 @@ func main() {
 	fmt.Println("CronJob start.....")
 
 	mw := new(windows.MyMainWindow)
-	mw.MainWindow, _ = walk.NewMainWindow()
+	var err error
+	mw.MainWindow, err = walk.NewMainWindow()
+	if err != nil {
+		log.Fatal(err)
+	}
 	mw.AddNotifyIcon()
 	mw.Closing().Attach(func(canceled *bool, reason walk.CloseReason) {
 		Cron.Stop()
