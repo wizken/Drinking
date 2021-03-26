@@ -7,6 +7,7 @@ import (
 	"github.com/robfig/cron"
 	"github.com/winstonkenny/drinking/windows"
 	"log"
+	"os"
 	"reflect"
 	"runtime"
 	"time"
@@ -51,12 +52,13 @@ func Run(job func() error) {
 }
 
 func DoNotice() error {
+	runningTime, _ := os.Getwd()
 	timeNow := time.Now().Format("15:04")
 	notification := toast.Notification{
 		AppID:   "Microsoft.Windows.Shell.RunDialog",
 		Title:   "喝水去",
 		Message: "现在是[" + timeNow + "],该喝水了呀，亲亲!!",
-		Icon:    "E:\\Picture\\HeadImage\\favicon_64x64.ico", // 文件必须存在
+		Icon:    runningTime + "/img/logo.png", // 文件必须存在
 		Actions: []toast.Action{
 			{"protocol", "刚喝了", ""},
 			{"protocol", "好,这就去", ""},
